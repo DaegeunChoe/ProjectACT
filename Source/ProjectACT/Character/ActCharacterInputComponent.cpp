@@ -4,6 +4,7 @@
 #include "Input/ActInputConfig.h"
 #include "Input/ActInputComponent.h"
 #include "Player/ActPlayerController.h"
+#include "AbilitySystem/ActAbilitySystemComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 
@@ -82,20 +83,96 @@ void UActCharacterInputComponent::InitializePlayerInput(UInputComponent* PlayerI
 
 void UActCharacterInputComponent::Input_AbilityAction_Pressed(FGameplayTag InputTag)
 {
+	AActCharacter* Owner = GetOwner<AActCharacter>();
+	if (!IsValid(Owner))
+	{
+		return;
+	}
+
+	UActAbilitySystemComponent* ActASC = Owner->GetActAbilitySystemComponent();
+	if (!IsValid(ActASC))
+	{
+		return;
+	}
+
+	ActASC->AbilityInputTagPressed(InputTag);
 }
 
 void UActCharacterInputComponent::Input_AbilityAction_Released(FGameplayTag InputTag)
 {
+	AActCharacter* Owner = GetOwner<AActCharacter>();
+	if (!IsValid(Owner))
+	{
+		return;
+	}
+
+	UActAbilitySystemComponent* ActASC = Owner->GetActAbilitySystemComponent();
+	if (!IsValid(ActASC))
+	{
+		return;
+	}
+
+	ActASC->AbilityInputTagReleased(InputTag);
 }
 
 void UActCharacterInputComponent::Input_NativeAction_Move(const FInputActionValue& InputActionValue)
 {
+	AActCharacter* Owner = GetOwner<AActCharacter>();
+	if (!IsValid(Owner))
+	{
+		return;
+	}
+
+	const AController* Controller = Owner->GetController<AController>();
+	if (!IsValid(Controller))
+	{
+		return;
+	}
+
+	const FVector2D Value = InputActionValue.Get<FVector2D>();
+	const FRotator MovementRotation(0, Controller->GetControlRotation().Yaw, 0);
+
+	if (Value.X != 0.0f)
+	{
+		const FVector RightVector = MovementRotation.RotateVector(FVector::RightVector);
+		Owner->AddMovementInput(RightVector, Value.X);
+	}
+
+	if (Value.Y != 0.0f)
+	{
+		const FVector ForwardVector = MovementRotation.RotateVector(FVector::ForwardVector);
+		Owner->AddMovementInput(ForwardVector, Value.Y);
+	}
 }
 
 void UActCharacterInputComponent::Input_NativeAction_Look_Mouse(const FInputActionValue& InputActionValue)
 {
+	AActCharacter* Owner = GetOwner<AActCharacter>();
+	if (!IsValid(Owner))
+	{
+		return;
+	}
+
+	const AController* Controller = Owner->GetController<AController>();
+	if (!IsValid(Controller))
+	{
+		return;
+	}
+
+	const FVector2D Value = InputActionValue.Get<FVector2D>();
+
+	if (Value.X != 0.0f)
+	{
+		Owner->AddControllerYawInput(Value.X);
+	}
+
+	if (Value.Y != 0.0f)
+	{
+		Owner->AddControllerPitchInput(Value.Y);
+	}
 }
 
 void UActCharacterInputComponent::Input_NativeAction_Look_Stick(const FInputActionValue& InputActionValue)
 {
+	// TODO
 }
