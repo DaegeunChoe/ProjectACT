@@ -12,14 +12,15 @@ AActBattlePlayerState::AActBattlePlayerState()
 
 	// AbilitySystemComponent needs to be updated at a high frequency.
 	SetNetUpdateFrequency(100.0f);
-}
 
-void AActBattlePlayerState::BeginPlay()
-{
 	if (!OnPawnSet.IsAlreadyBound(this, &ThisClass::OnPawnReady))
 	{
 		OnPawnSet.AddDynamic(this, &ThisClass::OnPawnReady);
 	}
+}
+
+void AActBattlePlayerState::BeginPlay()
+{
 }
 
 void AActBattlePlayerState::EndPlay(EEndPlayReason::Type EndPlayReason)

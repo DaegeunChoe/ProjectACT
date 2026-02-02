@@ -77,8 +77,8 @@ void UActCharacterInputComponent::InitializePlayerInput(UInputComponent* PlayerI
 	ActInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityAction_Pressed, &ThisClass::Input_AbilityAction_Released);
 
 	ActInputComponent->BindNativeAction(InputConfig, ActInputTag::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_NativeAction_Move);
-	ActInputComponent->BindNativeAction(InputConfig, ActInputTag::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_NativeAction_Look_Mouse);
-	ActInputComponent->BindNativeAction(InputConfig, ActInputTag::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_NativeAction_Look_Stick);
+	ActInputComponent->BindNativeAction(InputConfig, ActInputTag::InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ThisClass::Input_NativeAction_Look_Mouse);
+	ActInputComponent->BindNativeAction(InputConfig, ActInputTag::InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ThisClass::Input_NativeAction_Look_Stick);
 }
 
 void UActCharacterInputComponent::Input_AbilityAction_Pressed(FGameplayTag InputTag)
@@ -134,14 +134,14 @@ void UActCharacterInputComponent::Input_NativeAction_Move(const FInputActionValu
 
 	if (Value.X != 0.0f)
 	{
-		const FVector RightVector = MovementRotation.RotateVector(FVector::RightVector);
-		Owner->AddMovementInput(RightVector, Value.X);
+		const FVector ForwardVector = MovementRotation.RotateVector(FVector::ForwardVector);
+		Owner->AddMovementInput(ForwardVector, Value.X);
 	}
 
 	if (Value.Y != 0.0f)
 	{
-		const FVector ForwardVector = MovementRotation.RotateVector(FVector::ForwardVector);
-		Owner->AddMovementInput(ForwardVector, Value.Y);
+		const FVector RightVector = MovementRotation.RotateVector(FVector::RightVector);
+		Owner->AddMovementInput(RightVector, Value.Y);
 	}
 }
 
