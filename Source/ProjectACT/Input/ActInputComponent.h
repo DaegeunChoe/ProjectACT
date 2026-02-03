@@ -2,6 +2,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "Input/ActInputConfig.h"
+#include "ActLogChannel.h"
 #include "ActInputComponent.generated.h"
 
 class UInputAction;
@@ -29,6 +30,7 @@ inline void UActInputComponent::BindNativeAction(const UActInputConfig* InputCon
 	const UInputAction* InputAction = InputConfig->FindNativeInputActionForTag(InputTag);
 	if (!InputAction)
 	{
+		ACT_LOG(LogAct, Warning, TEXT("InputAction is nullptr"));
 		return;
 	}
 
@@ -60,6 +62,10 @@ inline void UActInputComponent::BindAbilityActions(const UActInputConfig* InputC
 					BindHandles->Add(BindHandle);
 				}
 			}
+		}
+		else
+		{
+			ACT_LOG(LogAct, Warning, TEXT("Pair.InputAction is nullptr OR Pair.InputTag is INVALID."));
 		}
 	}
 }

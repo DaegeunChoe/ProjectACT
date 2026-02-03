@@ -1,5 +1,6 @@
 #include "AbilitySystem/ActAbilitySystemComponent.h"
 #include "AbilitySystem/ActGameplayAbility.h"
+#include "ActLogChannel.h"
 
 UActAbilitySystemComponent::UActAbilitySystemComponent()
 {
@@ -9,6 +10,7 @@ void UActAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& Inpu
 {
 	if (!InputTag.IsValid())
 	{
+		ACT_LOG(LogAct, Warning, TEXT("InputTag %s is INVALID"), *InputTag.ToString());
 		return;
 	}
 
@@ -27,6 +29,7 @@ void UActAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& Inp
 {
 	if (!InputTag.IsValid())
 	{
+		ACT_LOG(LogAct, Warning, TEXT("InputTag %s is INVALID"), *InputTag.ToString());
 		return;
 	}
 
@@ -51,6 +54,7 @@ void UActAbilitySystemComponent::ProcessAbilityInput(float DeltaTime, bool bGame
 		const FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromHandle(SpecHandle);
 		if (!AbilitySpec)
 		{
+			ACT_LOG(LogAct, Warning, TEXT("AbilitySpec is nullptr"));
 			continue;
 		}
 
@@ -69,6 +73,7 @@ void UActAbilitySystemComponent::ProcessAbilityInput(float DeltaTime, bool bGame
 		FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromHandle(SpecHandle);
 		if (!AbilitySpec)
 		{
+			ACT_LOG(LogAct, Warning, TEXT("AbilitySpec is nullptr"));
 			continue;
 		}
 
@@ -95,6 +100,7 @@ void UActAbilitySystemComponent::ProcessAbilityInput(float DeltaTime, bool bGame
 		FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromHandle(SpecHandle);
 		if (!AbilitySpec)
 		{
+			ACT_LOG(LogAct, Warning, TEXT("AbilitySpec is nullptr"));
 			continue;
 		}
 

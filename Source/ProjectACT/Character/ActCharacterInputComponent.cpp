@@ -7,6 +7,7 @@
 #include "AbilitySystem/ActAbilitySystemComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
+#include "ActLogChannel.h"
 
 namespace ActInputTag
 {
@@ -26,42 +27,49 @@ void UActCharacterInputComponent::InitializePlayerInput(UInputComponent* PlayerI
 	const AActCharacter* Owner = GetOwner<AActCharacter>();
 	if (!IsValid(Owner))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Owner is INVALID"));
 		return;
 	}
 
 	const APlayerController* PlayerController = Owner->GetController<APlayerController>();
 	if (!IsValid(PlayerController))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("PlayerController is INVALID"));
 		return;
 	}
 
 	const ULocalPlayer* LocalPlayer = Cast<ULocalPlayer>(PlayerController->GetLocalPlayer());
 	if (!IsValid(LocalPlayer))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("LocalPlayer is INVALID"));
 		return;
 	}
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 	if (!IsValid(Subsystem))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Subsystem is INVALID"));
 		return;
 	}
 
 	const UActPawnData* PawnData = Owner->GetPawnData();
 	if (!IsValid(PawnData))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("PawnData is INVALID"));
 		return;
 	}
 
 	const UActInputConfig* InputConfig = PawnData->InputConfig;
 	if (!IsValid(InputConfig))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("PawnData->InputConfig is INVALID"));
 		return;
 	}
 
 	UInputMappingContext* InputMappingContext = DefaultInputMapping;
 	if (!IsValid(InputMappingContext))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("DefaultInputMapping is INVALID"));
 		return;
 	}
 
@@ -71,6 +79,7 @@ void UActCharacterInputComponent::InitializePlayerInput(UInputComponent* PlayerI
 	UActInputComponent* ActInputComponent = Cast<UActInputComponent>(PlayerInputComponent);
 	if (!IsValid(ActInputComponent))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("ActInputComponent is INVALID"));
 		return;
 	}
 
@@ -86,12 +95,14 @@ void UActCharacterInputComponent::Input_AbilityAction_Pressed(FGameplayTag Input
 	AActCharacter* Owner = GetOwner<AActCharacter>();
 	if (!IsValid(Owner))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Owner is INVALID"));
 		return;
 	}
 
 	UActAbilitySystemComponent* ActASC = Owner->GetActAbilitySystemComponent();
 	if (!IsValid(ActASC))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("ActASC is INVALID"));
 		return;
 	}
 
@@ -103,12 +114,14 @@ void UActCharacterInputComponent::Input_AbilityAction_Released(FGameplayTag Inpu
 	AActCharacter* Owner = GetOwner<AActCharacter>();
 	if (!IsValid(Owner))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Owner is INVALID"));
 		return;
 	}
 
 	UActAbilitySystemComponent* ActASC = Owner->GetActAbilitySystemComponent();
 	if (!IsValid(ActASC))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("ActASC is INVALID"));
 		return;
 	}
 
@@ -120,12 +133,14 @@ void UActCharacterInputComponent::Input_NativeAction_Move(const FInputActionValu
 	AActCharacter* Owner = GetOwner<AActCharacter>();
 	if (!IsValid(Owner))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Owner is INVALID"));
 		return;
 	}
 
 	const AController* Controller = Owner->GetController<AController>();
 	if (!IsValid(Controller))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Controller is INVALID"));
 		return;
 	}
 
@@ -150,12 +165,14 @@ void UActCharacterInputComponent::Input_NativeAction_Look_Mouse(const FInputActi
 	AActCharacter* Owner = GetOwner<AActCharacter>();
 	if (!IsValid(Owner))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Owner is INVALID"));
 		return;
 	}
 
 	const AController* Controller = Owner->GetController<AController>();
 	if (!IsValid(Controller))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Controller is INVALID"));
 		return;
 	}
 

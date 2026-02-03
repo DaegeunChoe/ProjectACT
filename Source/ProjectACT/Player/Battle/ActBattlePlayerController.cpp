@@ -1,6 +1,7 @@
 #include "Player/Battle/ActBattlePlayerController.h"
 #include "Player/Battle/ActBattlePlayerState.h"
 #include "AbilitySystem/ActAbilitySystemComponent.h"
+#include "ActLogChannel.h"
 
 AActBattlePlayerController::AActBattlePlayerController()
 {
@@ -15,6 +16,7 @@ UActAbilitySystemComponent* AActBattlePlayerController::GetActAbilitySystemCompo
 	}
 	else
 	{
+		ACT_LOG(LogAct, Warning, TEXT("BattlePlayerState is INVALID"));
 		return nullptr;
 	}
 }
