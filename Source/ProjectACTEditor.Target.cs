@@ -12,7 +12,7 @@ public class ProjectACTEditorTarget : TargetRules
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_5;
 		ExtraModuleNames.Add("ProjectACT");
 
-		// Get git hash
+		// Get git commit hash
 		PreBuildSteps.Add("cd $(ProjectDir)");
 		PreBuildSteps.Add("for /f \"tokens=*\" %%i in ('git rev-parse --short HEAD') do set COMMIT_HASH=%%i");
 		PreBuildSteps.Add("echo %COMMIT_HASH%");
