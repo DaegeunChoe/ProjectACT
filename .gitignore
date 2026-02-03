@@ -1,6 +1,9 @@
 # git commit hash
 Source/ProjectACT/git.h
 
+# open resources
+Content/ParagonGreystone/
+
 # Visual Studio 2015 user specific files
 .vs/
 
