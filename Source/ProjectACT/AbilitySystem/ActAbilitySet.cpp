@@ -3,6 +3,7 @@
 #include "AbilitySystem/ActGameplayAbility.h"
 #include "AbilitySystem/ActGameplayEffect.h"
 #include "AttributeSet.h"
+#include "ActLogChannel.h"
 
 void FActAbilitySet_GrantedHandles::AddGameplayAbilityHandle(const FGameplayAbilitySpecHandle& InHandle)
 {
@@ -34,6 +35,7 @@ void FActAbilitySet_GrantedHandles::TakeFromAbilitySystem(UActAbilitySystemCompo
 
 	if (!ActASC->IsOwnerActorAuthoritative())
 	{
+		ACT_LOG(LogAct, Warning, TEXT("ActASC is NOT Authoritative"));
 		return;
 	}
 
@@ -76,12 +78,14 @@ void UActAbilitySet::GrantAttributeSet(UActAbilitySystemComponent* ActASC, FActA
 	{
 		if (!IsValid(Item.AttributeSet))
 		{
+			ACT_LOG(LogAct, Warning, TEXT("Item.AttributeSet is INVALID"));
 			continue;
 		}
 
 		UAttributeSet* NewSet = NewObject<UAttributeSet>(ActASC->GetOwner(), Item.AttributeSet);
 		if (!NewSet)
 		{
+			ACT_LOG(LogAct, Warning, TEXT("NewSet is nullptr"));
 			continue;
 		}
 
@@ -100,12 +104,14 @@ void UActAbilitySet::GrantGameplayEffect(UActAbilitySystemComponent* ActASC, FAc
 	{
 		if (!IsValid(Item.GameplayEffect))
 		{
+			ACT_LOG(LogAct, Warning, TEXT("Item.GameplayEffect is INVALID"));
 			continue;
 		}
 
 		UActGameplayEffect* EffectCDO = Item.GameplayEffect->GetDefaultObject<UActGameplayEffect>();
 		if (!EffectCDO)
 		{
+			ACT_LOG(LogAct, Warning, TEXT("EffectCDO is nullptr"));
 			continue;
 		}
 		
@@ -124,12 +130,14 @@ void UActAbilitySet::GrantAbility(UActAbilitySystemComponent* ActASC, FActAbilit
 	{
 		if (!IsValid(Item.Ability))
 		{
+			ACT_LOG(LogAct, Warning, TEXT("Item.Ability is INVALID"));
 			continue;
 		}
 
 		UActGameplayAbility* AbilityCDO = Item.Ability->GetDefaultObject<UActGameplayAbility>();
 		if (!AbilityCDO)
 		{
+			ACT_LOG(LogAct, Warning, TEXT("AbilityCDO is nullptr"));
 			continue;
 		}
 
@@ -152,6 +160,7 @@ void UActAbilitySet::GiveToAbilitySystem(UActAbilitySystemComponent* ActASC, FAc
 
 	if (!ActASC->IsOwnerActorAuthoritative())
 	{
+		ACT_LOG(LogAct, Warning, TEXT("ActASC is NOT Authoritative"));
 		return;
 	}
 

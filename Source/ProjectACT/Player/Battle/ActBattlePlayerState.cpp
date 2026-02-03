@@ -3,6 +3,7 @@
 #include "AbilitySystem/ActAbilitySet.h"
 #include "Character/ActCharacter.h"
 #include "Character/ActPawnData.h"
+#include "ActLogChannel.h"
 
 AActBattlePlayerState::AActBattlePlayerState()
 {
@@ -45,18 +46,21 @@ void AActBattlePlayerState::OnPawnReady(APlayerState* Player, APawn* NewPawn, AP
 {
 	if (!AbilitySystemComponent)
 	{
+		ACT_LOG(LogAct, Warning, TEXT("AbilitySystemComponent is nullptr"));
 		return;
 	}
 
 	AActCharacter* Character = GetPawn<AActCharacter>();
 	if (!IsValid(Character))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("Character is INVALID"));
 		return;
 	}
 
 	const UActPawnData* PawnData = Character->GetPawnData();
 	if (!IsValid(PawnData))
 	{
+		ACT_LOG(LogAct, Warning, TEXT("PawnData is INVALID"));
 		return;
 	}
 	CachedPawnData = PawnData;
