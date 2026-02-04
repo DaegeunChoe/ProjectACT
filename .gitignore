@@ -1,8 +1,9 @@
 # git commit hash
 Source/ProjectACT/git.h
 
-# open resources
+# open/free resources
 Content/ParagonGreystone/
+Content/FreeSampleAnimationSet
 
 # Visual Studio 2015 user specific files
 .vs/
