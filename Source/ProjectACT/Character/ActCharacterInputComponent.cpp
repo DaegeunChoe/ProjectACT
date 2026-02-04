@@ -14,6 +14,8 @@ namespace ActInputTag
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_Move, "InputTag.Move", "");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_Look_Mouse, "InputTag.Look.Mouse", "");
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_Look_Stick, "InputTag.Look.Stick", "");
+
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_DirectionFix, "InputTag.DirectionFix", "");
 }
 
 UActCharacterInputComponent::UActCharacterInputComponent()

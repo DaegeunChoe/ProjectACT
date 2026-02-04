@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "ActCharacter.generated.h"
 
 class UActPawnData;
@@ -9,7 +10,7 @@ class UActAbilitySystemComponent;
 class UAbilitySystemComponent;
 
 UCLASS()
-class PROJECTACT_API AActCharacter : public ACharacter
+class PROJECTACT_API AActCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -20,8 +21,8 @@ public:
 
 	const UActPawnData* GetPawnData() const { return PawnData; }
 
-	UActAbilitySystemComponent* GetActAbilitySystemComponent();
-	UAbilitySystemComponent* GetAbilitySystemComponent();
+	UActAbilitySystemComponent* GetActAbilitySystemComponent() const;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Act")
@@ -29,8 +30,4 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Act|Component")
 	TObjectPtr<UActCharacterInputComponent> CharacterInputComponent;
-
-private:
-	UPROPERTY()
-	TObjectPtr<UActAbilitySystemComponent> CachedAbilitySystemComponent = nullptr;
 };

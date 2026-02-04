@@ -25,29 +25,20 @@ void AActCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 }
 
-UActAbilitySystemComponent* AActCharacter::GetActAbilitySystemComponent()
+UActAbilitySystemComponent* AActCharacter::GetActAbilitySystemComponent() const
 {
-	if (!IsValid(CachedAbilitySystemComponent))
+	AActBattlePlayerState* BattlePlayerState = GetPlayerState<AActBattlePlayerState>();
+	if (IsValid(BattlePlayerState))
 	{
-		CachedAbilitySystemComponent = nullptr;
-		AActBattlePlayerState* BattlePlayerState = GetPlayerState<AActBattlePlayerState>();
-		if (IsValid(BattlePlayerState))
-		{
-			CachedAbilitySystemComponent = BattlePlayerState->GetActAbilitySystemComponent();
-			return CachedAbilitySystemComponent;
-		}
-		else
-		{
-			return nullptr;
-		}
+		return BattlePlayerState->GetActAbilitySystemComponent();
 	}
 	else
 	{
-		return CachedAbilitySystemComponent;
+		return nullptr;
 	}
 }
 
-UAbilitySystemComponent* AActCharacter::GetAbilitySystemComponent()
+UAbilitySystemComponent* AActCharacter::GetAbilitySystemComponent() const
 {
 	return GetActAbilitySystemComponent();
 }
